@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>PI 2025</h2>
+        <a href="/dashboard">Usuários</a>
+        <a href="/agendamentos">Agendamentos</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/relatorios">Relatórios</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="content">
+        <h1>Bem-vindo, {{ usuario.nome }}!</h1>
+        <p>Selecione uma opção no menu lateral.</p>
+    </div>
+</body>
+</html>

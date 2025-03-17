@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quantidade em Estoque de cada Produto em (ml)</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Extractus</th>
+                    <th>Bactran</th>
+                    <th>Sanitizante</th>
+                    <th>Sintra</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.vonixx_extractus }}</td>
+                    <td>{{ produto.vonixx_bactran }}</td>
+                    <td>{{ produto.vonixx_sanitizante }}</td>
+                    <td>{{ produto.vonixx_sintra }}</td>
+                    <td>
+                        <a href="/produtos/{{ produto.id }}/editar" class="btn btn-editar">Editar</a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/" class="btn btn-novo">Menu Principal</a>
+    </div>
+</body>
+</html>

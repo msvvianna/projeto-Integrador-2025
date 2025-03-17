@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Agendamento</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Novo Agendamento</h1>
+        <form action="/agendamentos/novo" method="post">
+            <label for="cliente">Cliente:</label>
+            <input type="text" id="cliente" name="cliente" required><br><br>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" required><br><br>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required><br><br>
+
+            <label for="data_agendamento">Data do Agendamento:</label>
+            <input type="datetime-local" id="data_agendamento" name="data_agendamento" required><br><br>
+
+            <label for="vonixx_extractus">Vonixx Extractus (ml):</label>
+            <input type="number" id="vonixx_extractus" name="vonixx_extractus" step="0.01"><br><br>
+
+            <label for="vonixx_bactran">Vonixx Bactran (ml):</label>
+            <input type="number" id="vonixx_bactran" name="vonixx_bactran" step="0.01"><br><br>
+
+            <label for="vonixx_sanitizante">Vonixx Sanitizante (ml):</label>
+            <input type="number" id="vonixx_sanitizante" name="vonixx_sanitizante" step="0.01"><br><br>
+
+            <label for="vonixx_sintra">Vonixx Sintra (ml):</label>
+            <input type="number" id="vonixx_sintra" name="vonixx_sintra" step="0.01"><br><br>
+
+            <input type="submit" value="Criar Agendamento">
+            <a href="/agendamentos" class="btn-voltar">Voltar</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatórios</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <div class="sidebar">
+        <h2>PI 2025</h2>
+        <a href="/dashboard">Usuários</a>
+        <a href="/agendamentos">Agendamentos</a>
+        <a href="/produtos">Produtos</a>
+        <a href="/relatorios">Relatórios</a>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="content">
+        <h1>Relatórios</h1>
+
+        <div style="width: 600px;">
+            <canvas id="graficoAgendamentos"></canvas>
+        </div>
+
+        <div style="width: 600px;">
+            <canvas id="graficoProdutosUtilizados"></canvas>
+        </div>
+
+        <div style="width: 600px;">
+                <canvas id="graficoEstoqueProdutos"></canvas>
+        </div>
+    </div>
+
+    <!-- Passando dados para o script -->
+    <script>
+        var agendamentos_meses = {{ agendamentos_meses | tojson | safe }};
+        var agendamentos_quantidades = {{ agendamentos_quantidades | tojson | safe }};
+        var produtos_utilizados = {{ produtos_utilizados | tojson | safe }};
+        var estoque_produtos = {{ estoque_produtos | tojson | safe }};
+    </script>
+    <script src="/static/script.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Agendamentos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>Data</th>
+                    <th>Extractus</th>
+                    <th>Bactran</th>
+                    <th>Sanitizante</th>
+                    <th>Sintra</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                <tr>
+                    <td>{{ agendamento.cliente }}</td>
+                    <td>{{ agendamento.endereco }}</td>
+                    <td>{{ agendamento.telefone }}</td>
+                    <td>{{ agendamento.data_agendamento }}</td>
+                    <td>{{ agendamento.vonixx_extractus }}</td>
+                    <td>{{ agendamento.vonixx_bactran }}</td>
+                    <td>{{ agendamento.vonixx_sanitizante }}</td>
+                    <td>{{ agendamento.vonixx_sintra }}</td>
+                    <td>{{ agendamento.status }}</td>
+                    <td>
+                        <a href="/agendamentos/{{ agendamento.id }}/editar" class="btn btn-editar">Editar</a>
+                        <form action="/agendamentos/finalizar/{{ agendamento.id }}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-excluir">Finalizar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/agendamentos/novo" class="btn btn-novo">Novo Agendamento</a>
+        <a href="/" class="btn btn-novo">Menu Principal</a>
+    </div>
+</body>
+</html>
