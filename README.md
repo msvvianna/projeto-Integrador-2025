@@ -34,7 +34,38 @@
 - **Exemplos:** Postman, Insomnia, curl. 
 - **Motivo:** Para testar os endpoints da API. 
 
-**Passos para Configurar o Ambiente:**
+**Passos para Configurar o Ambiente na maquina local:**
+
+0. **Crie os diretorios e arquivos (Linux)**
+mkdir -p app/static app/templates
+
+touch app/docker-compose.yml
+touch app/Dockerfile
+touch app/main.py
+touch app/README.md
+touch app/requirements.txt
+
+touch app/static/script.js
+touch app/static/style.css
+
+touch app/templates/agendamento_editar.html
+touch app/templates/agendamento_form.html
+touch app/templates/agendamentos_lista.html
+touch app/templates/cadastro.html
+touch app/templates/dashboard.html
+touch app/templates/editar_usuario.html
+touch app/templates/login.html
+touch app/templates/pagina_principal.html
+touch app/templates/produto_editar.html
+touch app/templates/produto_form.html
+touch app/templates/produtos_lista.html
+touch app/templates/relatorios.html
+
+**Verifique a Estrutura de diretorios e arquivos**
+
+Comando:  tree app  (para verificar se a criação ficou igual a imagem abaixo)                       .
+
+![img.png](diretorios.png)
 
 1. **Instale o Python:** Se você ainda não tem o Python instalado, baixe e 
 
@@ -43,9 +74,9 @@ instale a versão mais recente do site oficial do Python.
 2. **Crie um Ambiente Virtual:** 
 
 - Navegue até o diretório do seu projeto no terminal. 
-- Execute o comando python -m venv meu\_env (ou virtualenv meu\_env). 
+- Execute o comando python -m venv meu_env (ou virtualenv meu_env). 
 - Ative o ambiente virtual: 
-  - Linux: source meu\_env/bin/activate 
+  - Linux: source meu_env/bin/activate 
 
 3. **Instale as Dependências:** 
 
@@ -65,49 +96,61 @@ instale a versão mais recente do site oficial do Python.
 
 - Abra um navegador web e acesse http://127.0.0.1:8000.
 
-**Estrutura de diretorios e arquivos**
+**Passos para Configurar o Ambiente via Docker:**
 
-└─[$] <git:(main\*)> tree                         .
+**Passo 1: Atualizar o Sistema**
+ sudo apt update && sudo apt upgrade -y
 
-├── main.py
+**Passo 2: Instalar Pacotes Necessários**
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
 
-├── \_\_pycache\_\_
+**Passo 3: Adicionar a Chave GPG do Docker**
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-│ └── main.cpython-311.pyc
+**Passo 4: Adicionar o Repositório do Docker**
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-├── requirements.txt
+**Passo 5: Instalar o Docker**
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io -y
 
-├── static
+**Passo 6: Verificar a Instalação do Docker**
+docker --version
 
-│ ├── script.js
+**Passo 7: Habilitar e Iniciar o Docker**
+sudo systemctl start docker
+sudo systemctl enable docker
 
-│ └── style.css
+**Passo 8: Adicionar usuário ao grupo Docker (opcional, para rodar sem sudo)**
+sudo usermod -aG docker $USER
+newgrp docker
 
-└── templates
+**Passo 9: Executar a aplicação**
 
-`    `├── agendamento\_editar.html
+- **Entrar no diretorio app**
+    - cd app
 
-`    `├── agendamento\_form.html
+- **Fazer o build da imagem**
+    -  docker compose up --build
+    -  aguardar a mensagem conforme abaixo:
 
-`    `├── agendamentos\_lista.html
+![img.png](saida.png)
 
-`    `├── cadastro.html
+http://0.0.0.0:8000 - url para acessa a aplicação (0.0.0.0 ip de onde o container está rodando)
 
-`    `├── dashboard.html
+0. **docker-compose.yml | Dockerfile | README.md:**
 
-`    `├── editar\_usuario.html
-
-`    `├── login.html
-
-`    `├── pagina\_principal.html
-
-`    `├── produto\_editar.html
-
-`    `├── produto\_form.html
-
-`    `├── produtos\_lista.html
-
-`    `└── relatorios.html
+**docker-compose.yml**
+- **Função:** 
+    - Esse arquivo define e gerencia múltiplos contêineres Docker para a aplicação. Ele descreve quais serviços (como um banco de dados, backend, frontend) serão executados, quais imagens serão usadas e como os contêineres se comunicam.
+  
+**Dockerfile**
+- **Função:** 
+    - Define como a imagem Docker da aplicação será construída. Ele especifica a base da imagem, quais dependências instalar, como o código será adicionado ao contêiner e qual comando será executado ao iniciar o contêiner.
+  
+**README.md**
+- **Função:** 
+    - Um arquivo de documentação no formato Markdown (.md). Ele geralmente contém informações sobre o projeto, como descrição, instruções de instalação, como rodar a aplicação e exemplos de uso.
 
 1. **main.py:**
 - **Função:** 
@@ -142,17 +185,17 @@ instale a versão mais recente do site oficial do Python.
   - Eles usam a engine de templates Jinja2 para inserir dados dinâmicos nas páginas. 
   
 - **Arquivos:** 
-  - pagina\_principal.html: Página principal da aplicação. 
+  - pagina_principal.html: Página principal da aplicação. 
   - login.html: Página de login. 
   - cadastro.html: Página de cadastro de usuários. 
   - dashboard.html: Página de dashboard com a lista de usuários. 
-  - editar\_usuario.html: Página para editar um usuário. 
-  - agendamentos\_lista.html: Página com a lista de agendamentos. 
-  - agendamento\_form.html: Página para criar um novo agendamento. 
-  - agendamento\_editar.html: Página para editar um agendamento. 
-  - produtos\_lista.html: Página com a lista de produtos. 
-  - produto\_form.html: Página para criar um novo produto. 
-  - produto\_editar.html: Página para editar um produto. 
+  - editar_usuario.html: Página para editar um usuário. 
+  - agendamentos_lista.html: Página com a lista de agendamentos. 
+  - agendamento_form.html: Página para criar um novo agendamento. 
+  - agendamento_editar.html: Página para editar um agendamento. 
+  - produtos_lista.html: Página com a lista de produtos. 
+  - produto_form.html: Página para criar um novo produto. 
+  - produto_editar.html: Página para editar um produto. 
   - relatorios.html: Página com os relatórios. 
   
 - **Responsabilidades:** 

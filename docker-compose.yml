@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Allstar3
+      MYSQL_DATABASE: estoque
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: app_container
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:root@db:3306/estoque
+    volumes:
+      - .:/app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             while ! nc -z db 3306; do echo 'Waiting for MySQL port 3306...'; sleep 5; done &&
+             while ! mysql -hdb -uroot -pAllstar3 -e 'SELECT 1'; do echo 'Waiting for database...'; sleep 5; done &&
+             echo 'MySQL connection successful!' &&
+             uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+volumes:
+  mysql_data:

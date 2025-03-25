@@ -18,15 +18,23 @@ templates = Jinja2Templates(directory="templates")
 
 def conectar_banco():
     return mysql.connector.connect(
-        host="localhost",
+        host="db",
         user="root",
         password="Allstar3",
-        database="estoque"
+        database="estoque",
+        port=3306
+
     )
 
-def criar_tabela_usuario():
+def criar_tabelas():
     conexao = conectar_banco()
     cursor = conexao.cursor()
+
+    # Cria o banco de dados se não existir
+    cursor.execute("CREATE DATABASE IF NOT EXISTS estoque")
+    cursor.execute("USE estoque")
+
+    # Cria a tabela usuario
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuario (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,15 +42,8 @@ def criar_tabela_usuario():
             senha VARCHAR(255) NOT NULL
         )
     """)
-    conexao.commit()
-    cursor.close()
-    conexao.close()
 
-criar_tabela_usuario() # Cria a tabela ao iniciar a aplicação
-
-def criar_tabela_produtos():
-    conexao = conectar_banco()
-    cursor = conexao.cursor()
+    # Cria a tabela produto
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS produto (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,14 +53,8 @@ def criar_tabela_produtos():
             vonixx_sintra INT(10)
         )
     """)
-    conexao.commit()
-    cursor.close()
-    conexao.close()
 
-criar_tabela_produtos()
-def criar_tabela_agendamento():
-    conexao = conectar_banco()
-    cursor = conexao.cursor()
+    # Cria a tabela agendamento
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS agendamento (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,11 +69,23 @@ def criar_tabela_agendamento():
             status VARCHAR(20) DEFAULT 'pendente'
         )
     """)
+
+    # Verifica se a tabela usuario está vazia e insere dados se necessário
+    cursor.execute("SELECT COUNT(*) FROM usuario")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute("INSERT INTO usuario (nome, senha) VALUES ('Admin', 123)")
+
+    # Verifica se a tabela produto está vazia e insere dados se necessário
+    cursor.execute("SELECT COUNT(*) FROM produto")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute("INSERT INTO produto (vonixx_extractus, vonixx_bactran, vonixx_sanitizante, vonixx_sintra) VALUES (1500, 1500, 1500, 1500)")
+
     conexao.commit()
     cursor.close()
     conexao.close()
 
-criar_tabela_agendamento()
+criar_tabelas() # Cria as tabelas e insere dados ao iniciar a aplicação
+
 def obter_usuario(usuario_id: int):
     conexao = conectar_banco()
     cursor = conexao.cursor(dictionary=True)
