@@ -37,7 +37,9 @@
 **Passos para Configurar o Ambiente na maquina local:**
 
 0. **Crie os diretorios e arquivos (Linux)**
-´´´bash
+
+
+```bash
 mkdir -p app/static app/templates
 
 touch app/docker-compose.yml
@@ -61,7 +63,7 @@ touch app/templates/produto_editar.html
 touch app/templates/produto_form.html
 touch app/templates/produtos_lista.html
 touch app/templates/relatorios.html
-´´´
+```
 
 **Verifique a Estrutura de diretorios e arquivos**
 
