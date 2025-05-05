@@ -115,15 +115,13 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 **Passo 5: Instalar o Docker**
-sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io -y
+sudo apt update && sudo apt install docker-ce docker-ce-cli containerd.io -y
 
 **Passo 6: Verificar a Instalação do Docker**
 docker --version
 
 **Passo 7: Habilitar e Iniciar o Docker**
-sudo systemctl start docker
-sudo systemctl enable docker
+sudo systemctl start docker && sudo systemctl enable docker
 
 **Passo 8: Adicionar usuário ao grupo Docker (opcional, para rodar sem sudo)**
 sudo usermod -aG docker $USER
