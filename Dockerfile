@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y default-mysql-client netcat-openbsd
 COPY . .
 
 # Exponha a porta em que a aplicação irá rodar
-EXPOSE 8000
+EXPOSE 80
 
 # Defina o comando para rodar a aplicação com Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
