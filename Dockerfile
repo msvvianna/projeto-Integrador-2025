@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 80
 
 # Defina o comando para rodar a aplicação com Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
